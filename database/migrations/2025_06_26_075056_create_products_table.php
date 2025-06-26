@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('food', function (Blueprint $table) {
-            $table->renameColumn('type_id', 'category_id');
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->decimal('price', 10, 2);
+            $table->string('image')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('food', function (Blueprint $table) {
-            $table->renameColumn('category_id', 'type_id');
-        });
+        Schema::dropIfExists('products');
     }
 };
