@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('food', function (Blueprint $table) {
-            $table->renameColumn('type_id', 'category_id');
-        });
+       Schema::dropIfExists('food');
+       Schema::dropIfExists('food_categories');
     }
 
     /**
@@ -21,8 +20,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('food', function (Blueprint $table) {
-            $table->renameColumn('category_id', 'type_id');
-        });
+        //
     }
 };

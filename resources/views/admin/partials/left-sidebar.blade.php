@@ -62,17 +62,17 @@ $current_route= request()->route()->getName();
                   </li>
               </li>
             </ul>
-            <li class="nav-item {{$current_route == 'admin.foods.index' ? 'menu-open' : ''}}">
-              <a href="{{ route('admin.foods.index') }}" class="nav-link {{$current_route == 'admin.foods.index' ? 'active' : ''}}">
+            <li class="nav-item {{$current_route == 'admin.products.index' ? 'menu-open' : ''}}">
+              <a href="{{ route('admin.products.index') }}" class="nav-link {{$current_route == 'admin.products.index' ? 'active' : ''}}">
                   <i class="nav-icon bi bi-box-seam"></i>
-                    <p>Food</p>
+                    <p>product</p>
               </a>
             </li>
 
-            <li class="nav-item {{$current_route == 'admin.foodCategories.index' ? 'menu-open' : ''}}">
-                    <a href="{{ route('admin.foodCategories.index') }}" class="nav-link {{$current_route == 'admin.foodCategories.index' ? 'active' : ''}}">
+            <li class="nav-item {{$current_route == 'admin.productCategories.index' ? 'menu-open' : ''}}">
+                    <a href="{{ route('admin.productCategories.index') }}" class="nav-link {{$current_route == 'admin.productCategories.index' ? 'active' : ''}}">
                         <i class="nav-icon bi bi-folder"></i>
-                        <p>Food Category</p>
+                        <p>product Category</p>
                     </a>
                 </li>
 

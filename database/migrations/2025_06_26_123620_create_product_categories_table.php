@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('food_categories', function (Blueprint $table) {
-            $table->unsignedInteger('order')->default(0);
-            $table->unsignedBigInteger('parent_id')->nullable()->index();
+        Schema::create('product_categories', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -22,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('food_categories', function (Blueprint $table) {
-            $table->dropColumn(['order', 'parent_id']);
-        });
+        Schema::dropIfExists('product_categories');
     }
 };

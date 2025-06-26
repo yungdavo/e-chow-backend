@@ -2,8 +2,8 @@
 
 @section('body')
 <div class="container">
-    <h1>Food List</h1>
-    <a href="{{ route('admin.foods.create') }}" class="btn btn-primary mb-3">Add Food</a>
+    <h1>product List</h1>
+    <a href="{{ route('admin.products.create') }}" class="btn btn-primary mb-3">Add product</a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -20,21 +20,21 @@
             </tr>
         </thead>
         <tbody>
-        @foreach($foods as $food)
+        @foreach($products as $product)
             <tr>
-                <td>{{ $food->id }}</td>
-                <td>{{ $food->name }}</td>
-                <td>{{ $food->category->title ?? 'N/A' }}</td>
-                <td>{{ $food->stars }}</td>
-                <td>{{ $food->price }}</td>
+                <td>{{ $product->id }}</td>
+                <td>{{ $product->name }}</td>
+                <td>{{ $product->category->title ?? 'N/A' }}</td>
+                <td>{{ $product->stars }}</td>
+                <td>{{ $product->price }}</td>
                 <td>
-                    @if($food->img)
-                        <img src="{{ asset('storage/'.$food->img) }}" width="60">
+                    @if($product->img)
+                        <img src="{{ asset('storage/'.$product->img) }}" width="60">
                     @endif
                 </td>
-                <td>{{ $food->description }}</td>
-                <td>{{ $food->created_at }}</td>
-                <td>{{ $food->updated_at }}</td>
+                <td>{{ $product->description }}</td>
+                <td>{{ $product->created_at }}</td>
+                <td>{{ $product->updated_at }}</td>
                 <td>
             </tr>
         @endforeach

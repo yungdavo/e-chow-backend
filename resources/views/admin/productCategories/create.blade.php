@@ -2,7 +2,7 @@
 
 @section('body')
 <div class="container">
-    <h2>Add New Food Category</h2>
+    <h2>Add New Prouct Category</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('admin.foodCategories.store') }}" method="POST">
+    <form action="{{ route('admin.productCategories.store') }}" method="POST">
         @csrf
 
         <div class="mb-3">
@@ -40,7 +40,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Create Category</button>
-        <a href="{{ route('admin.foodCategories.index') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ route('admin.productCategories.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 @endsection

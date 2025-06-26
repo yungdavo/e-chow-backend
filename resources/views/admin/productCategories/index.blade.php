@@ -1,11 +1,11 @@
-<!-- resources/views/admin/foodCategories/index.blade.php -->
+<!-- resources/views/admin/productCategories/index.blade.php -->
 
 @extends('main-layout')
 
 @section('body')
 <div class="container">
-    <h1 class="mb-4">Food Categories</h1>
-    <a href="{{ route('admin.foodCategories.create') }}" class="btn btn-primary mb-3">Add New Category</a>
+    <h1 class="mb-4">Product Categories</h1>
+    <a href="{{ route('admin.productCategories.create') }}" class="btn btn-primary mb-3">Add New Category</a>
 
     <!-- Nestable Tree -->
     <div class="dd" id="category-nestable">
@@ -15,8 +15,8 @@
                     <div class="dd-handle d-flex justify-content-between align-items-center">
                         <span>{{ $category->title }}</span>
                         <span>
-                            <a href="{{ route('admin.foodCategories.edit', $category->id) }}" class="btn btn-warning btn-sm me-1">Edit</a>
-                            <form action="{{ route('admin.foodCategories.destroy', $category->id) }}" method="POST" class="d-inline">
+                            <a href="{{ route('admin.productCategories.edit', $category->id) }}" class="btn btn-warning btn-sm me-1">Edit</a>
+                            <form action="{{ route('admin.productCategories.destroy', $category->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -31,8 +31,8 @@
                                     <div class="dd-handle d-flex justify-content-between align-items-center">
                                         <span>{{ $child->title }}</span>
                                         <span>
-                                            <a href="{{ route('admin.foodCategories.edit', $child->id) }}" class="btn btn-warning btn-sm me-1">Edit</a>
-                                            <form action="{{ route('admin.foodCategories.destroy', $child->id) }}" method="POST" class="d-inline">
+                                            <a href="{{ route('admin.productCategories.edit', $child->id) }}" class="btn btn-warning btn-sm me-1">Edit</a>
+                                            <form action="{{ route('admin.productCategories.destroy', $child->id) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -78,7 +78,7 @@
             let order = $('#category-nestable').nestable('serialize');
 
             $.ajax({
-                url: "{{ route('admin.foodCategories.reorder') }}",
+                url: "{{ route('admin.productCategories.reorder') }}",
                 method: "POST",
                 data: {
                     _token: '{{ csrf_token() }}',

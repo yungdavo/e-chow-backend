@@ -6,14 +6,13 @@ use App\Admin\Controllers\
 {   UserController,
     AuthController,
     ProfileController,
-    ProductController
 };
 use App\Http\Controllers\Api\ProductApiController;
 
 
 use App\Http\Controllers\Admin\{
-    FoodController,
-    FoodCategoryController
+    productController,
+    productCategoryController
 };
 
 
@@ -36,8 +35,8 @@ Route::prefix('admin')
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/logout', [ProfileController::class, 'logout'])->name('logout');
 
-    Route::resource('foods', FoodController::class);
-    Route::resource('foodCategories', FoodCategoryController::class);
-    Route::post('foodCategories/reorder', [FoodCategoryController::class, 'reorder'])->name('foodCategories.reorder');
+    Route::resource('products', ProductController::class);
+    Route::resource('productCategories', ProductCategoryController::class);
+    Route::post('productCategories/reorder', [ProductCategoryController::class, 'reorder'])->name('ProductCategories.reorder');
 });
 
