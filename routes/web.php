@@ -37,6 +37,11 @@ Route::prefix('admin')
 
     Route::resource('products', ProductController::class);
     Route::resource('productCategories', ProductCategoryController::class);
-    Route::post('productCategories/reorder', [ProductCategoryController::class, 'reorder'])->name('ProductCategories.reorder');
+
+    Route::post('productCategories/reorder', [ProductCategoryController::class, 'reorder'])
+    ->name('productCategories.reorder');
+
+    
+    
 });
 

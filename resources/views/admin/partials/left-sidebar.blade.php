@@ -1,5 +1,5 @@
 @php
-
+ use Illuminate\Support\Str;
 $current_route= request()->route()->getName();
 
 @endphp 
@@ -62,17 +62,17 @@ $current_route= request()->route()->getName();
                   </li>
               </li>
             </ul>
-            <li class="nav-item {{$current_route == 'admin.products.index' ? 'menu-open' : ''}}">
-              <a href="{{ route('admin.products.index') }}" class="nav-link {{$current_route == 'admin.products.index' ? 'active' : ''}}">
-                  <i class="nav-icon bi bi-box-seam"></i>
-                    <p>product</p>
+            <li class="nav-item {{ Str::startsWith($current_route, 'admin.products.') ? 'menu-open' : '' }}">
+              <a href="{{ route('admin.products.index') }}" class="nav-link {{ Str::startsWith($current_route, 'admin.products.') ? 'active' : '' }}">
+              <i class="nav-icon bi bi-box-seam"></i>
+                <p>Products</p>
               </a>
             </li>
 
-            <li class="nav-item {{$current_route == 'admin.productCategories.index' ? 'menu-open' : ''}}">
-                    <a href="{{ route('admin.productCategories.index') }}" class="nav-link {{$current_route == 'admin.productCategories.index' ? 'active' : ''}}">
+            <li class="nav-item {{ Str::startsWith ($current_route, 'admin.productCategories.') ? 'menu-open' : ''}}">
+                    <a href="{{ route('admin.productCategories.index') }}" class="nav-link {{ Str::startsWith ($current_route, 'admin.productCategories.') ? 'active' : ''}}">
                         <i class="nav-icon bi bi-folder"></i>
-                        <p>product Category</p>
+                        <p>Product Category</p>
                     </a>
                 </li>
 

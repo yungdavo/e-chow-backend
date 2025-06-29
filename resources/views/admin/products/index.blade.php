@@ -2,8 +2,8 @@
 
 @section('body')
 <div class="container">
-    <h1>product List</h1>
-    <a href="{{ route('admin.products.create') }}" class="btn btn-primary mb-3">Add product</a>
+    <h1>All Products</h1>
+    <a href="{{ route('admin.products.create') }}" class="btn btn-primary mb-3"> Add </a>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -25,17 +25,23 @@
                 <td>{{ $product->id }}</td>
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->category->title ?? 'N/A' }}</td>
-                <td>{{ $product->stars }}</td>
-                <td>{{ $product->price }}</td>
+                <td>{{ $product-> price }}</td>
+                <td>{{ $product-> stars }}</td>
                 <td>
-                    @if($product->img)
-                        <img src="{{ asset('storage/'.$product->img) }}" width="60">
+                    @if($product->image)
+                        <img src="{{ asset('storage/'.$product->image) }}" width="60">
                     @endif
                 </td>
                 <td>{{ $product->description }}</td>
                 <td>{{ $product->created_at }}</td>
                 <td>{{ $product->updated_at }}</td>
-                <td>
+                 <td>
+                        <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" style="display:inline;">
+                            @csrf @method('DELETE')
+                            <button onclick="return confirm('Are you sure?')" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
             </tr>
         @endforeach
         </tbody>
