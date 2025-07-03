@@ -15,7 +15,7 @@ class ProductController extends Controller
     }
 
     public function store(Request $request)
-{
+    {
     $validated = $request->validate([
         'name' => 'required|string|max:255',
         'price' => 'required|numeric',
@@ -35,18 +35,24 @@ class ProductController extends Controller
 
     return response()->json($products);
     }
+
     public function getPopular()
-{
+    {
     return $this->getByCategoryName('Popular');
-}
+    }
 
-public function getRecommended()
-{
+    public function getRecommended()
+    {
     return $this->getByCategoryName('Recommended');
-}
+    }
 
-private function getByCategoryName($title)
-{
+    // public function getDrinks()
+    // {
+    // return $this->getByCategoryName('Healthy Drink');
+    // }
+
+    private function getByCategoryName($title)
+    {
    $products = Product::with('category')
         ->whereHas('category', function ($query) use ($title) {
             $query->where('title', $title)
@@ -55,6 +61,6 @@ private function getByCategoryName($title)
         ->get();
 
     return response()->json($products);
-}
+    }
 
 }
