@@ -7,66 +7,84 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    // REGISTER
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'f_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|string|unique:users',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|string|email|max:255|unique:users',
+            'phone'    => 'required|string|unique:users',
             'password' => 'required|min:6',
-    ], [
-        'f_name.required' => 'First name field is required.',
-        'phone.required' => 'Phone no. field is required.'
-    ]);
+        ]);
 
         if ($validator->fails()) {
-        return response()->json([
-            'errors' => $validator->errors()
-        ], 422);
-    }
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
-        $user = User::create([    
-            'name' => $request->f_name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => Hash::make($request->password),
-            'is_phone_verified' => false, 
+        $user = User::create([
+            'name'              => $request->name,
+            'email'             => $request->email,
+            'phone'             => $request->phone,
+            'password'          => Hash::make($request->password),
+            'is_phone_verified' => false,
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
-            'token' => $token,
-            'user' => $user,
+            'success'           => true,
+            'user'              => $user,
+            'token'             => $token,
             'is_phone_verified' => $user->is_phone_verified,
-            'phone_verify_end_url' => 'api/auth/verify-phone' 
+        ], 201);
+    }
+
+    // LOGIN
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email'    => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Invalid credentials'], 401);
+        }
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'success'          => true,
+            'token'            => $token,
+            'user'             => $user,
+            'is_phone_verified'=> $user->is_phone_verified ?? false,
         ]);
     }
 
-    public function login(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required'
-    ]);
+    // LOGOUT
+    public function logout(Request $request)
+    {
+        $request->user()->tokens()->delete();
 
-    $user = User::where('email', $request->email)->first();
-
-    if (!$user || !Hash::check($request->password, $user->password)) {
-        return response()->json([
-            'message' => 'Invalid credentials'
-        ], 401);
+        return response()->json(['message' => 'Logged out successfully']);
     }
 
-    $token = $user->createToken('auth_token')->plainTextToken;
-
-    return response()->json([
-        'token' => $token,
-        'user' => $user,
-        'message' => 'Login successful'
-    ]);
-}
+    // FETCH USER DETAILS (NEW)
+    public function userProfile(Request $request)
+    {
+        return response()->json([
+            'success' => true,
+            'user'    => $request->user(),
+        ]);
+    }
 }
